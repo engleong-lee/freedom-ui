@@ -163,7 +163,7 @@ export function AnalysisContent({ analysis, onRemarksUpdate }: AnalysisContentPr
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full">
+    <div className="bg-white rounded-lg shadow-sm flex flex-col h-full overflow-hidden">
       <div className="border-b border-gray-200 flex-shrink-0">
         <nav className="flex -mb-px overflow-x-auto">
           <button 
@@ -209,9 +209,9 @@ export function AnalysisContent({ analysis, onRemarksUpdate }: AnalysisContentPr
         </nav>
       </div>
       
-      <div className="p-4 sm:p-6 flex-1 overflow-y-scroll custom-scrollbar" style={{ maxHeight: 'calc(100vh - 400px)' }}>
+      <div className="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto custom-scrollbar">
         {activeTab === 'analysis' && (
-          <div className="max-w-none">
+          <div className="max-w-none h-full overflow-y-auto">
             <ReactMarkdown components={markdownComponents}>
               {analysis.analysis_content}
             </ReactMarkdown>
@@ -219,7 +219,7 @@ export function AnalysisContent({ analysis, onRemarksUpdate }: AnalysisContentPr
         )}
         
         {activeTab === 'prompt' && (
-          <div className="max-w-none">
+          <div className="max-w-none h-full overflow-y-auto">
             <ReactMarkdown components={markdownComponents}>
               {analysis.analysis_prompt}
             </ReactMarkdown>
@@ -227,19 +227,19 @@ export function AnalysisContent({ analysis, onRemarksUpdate }: AnalysisContentPr
         )}
         
         {activeTab === 'decision' && (
-          <pre className="bg-gray-50 p-4 rounded overflow-auto text-sm font-mono text-gray-700">
+          <pre className="bg-gray-50 p-4 rounded overflow-auto text-sm font-mono text-gray-700 h-full">
             {JSON.stringify(analysis.decision, null, 2)}
           </pre>
         )}
         
         {activeTab === 'remarks' && (
-          <div className="flex flex-col h-full">
-            <div className="flex-1 min-h-[300px]">
+          <div className="flex flex-col h-full overflow-hidden">
+            <div className="flex-1 min-h-0 overflow-hidden">
               <textarea
                 value={remarks}
                 onChange={(e) => setRemarks(e.target.value)}
                 placeholder="Enter your remarks here..."
-                className="w-full h-full p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full h-full p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent overflow-y-auto"
                 disabled={isSaving}
               />
             </div>
