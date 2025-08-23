@@ -7,7 +7,7 @@ import { AnalysisPage } from './pages/AnalysisPage';
 
 export function App() {
   // Toggle this to enable/disable mock data mode
-  const USE_MOCK_DATA = true; // Set to true to use mock data
+  const USE_MOCK_DATA = false; // Set to true to use mock data
   
   return <Router>
       <Layout>
