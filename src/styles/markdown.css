@@ -1,0 +1,106 @@
+/* Custom styles for markdown content */
+.markdown-content h1 {
+  @apply text-2xl font-bold mb-6 text-gray-900;
+}
+
+.markdown-content h2 {
+  @apply text-xl font-semibold mt-6 mb-4 text-gray-800;
+}
+
+.markdown-content h3 {
+  @apply text-lg font-semibold mt-4 mb-3 text-gray-800;
+}
+
+.markdown-content p {
+  @apply mb-4 text-gray-700 leading-relaxed;
+}
+
+.markdown-content ul {
+  @apply mb-4 ml-6 space-y-1;
+  list-style-type: disc;
+}
+
+.markdown-content ol {
+  @apply mb-4 ml-6 space-y-1;
+  list-style-type: decimal;
+}
+
+.markdown-content li {
+  @apply text-gray-700 leading-relaxed;
+}
+
+.markdown-content li > ul,
+.markdown-content li > ol {
+  @apply mt-1 mb-0;
+}
+
+.markdown-content strong {
+  @apply font-semibold text-gray-900;
+}
+
+.markdown-content em {
+  @apply italic;
+}
+
+.markdown-content blockquote {
+  @apply border-l-4 border-gray-300 pl-4 my-4 italic text-gray-600;
+}
+
+.markdown-content code {
+  @apply bg-gray-100 rounded px-1.5 py-0.5 text-sm font-mono text-gray-800;
+}
+
+.markdown-content pre {
+  @apply bg-gray-100 rounded p-4 overflow-x-auto mb-4 text-sm;
+}
+
+.markdown-content pre code {
+  @apply bg-transparent p-0 rounded-none;
+}
+
+/* Handle nested lists properly */
+.markdown-content ul ul {
+  list-style-type: circle;
+}
+
+.markdown-content ul ul ul {
+  list-style-type: square;
+}
+
+/* Ensure proper spacing for list items with strong tags */
+.markdown-content li strong:first-child {
+  @apply inline-block mr-1;
+}
+
+/* Add some spacing between major sections */
+.markdown-content h2:not(:first-child) {
+  @apply mt-8;
+}
+
+/* Improve readability with max-width for long lines */
+.markdown-content p,
+.markdown-content li {
+  max-width: 65ch;
+}
+
+/* Style for horizontal rules if present */
+.markdown-content hr {
+  @apply my-8 border-t border-gray-300;
+}
+
+/* Style for tables if present */
+.markdown-content table {
+  @apply w-full mb-4 border-collapse;
+}
+
+.markdown-content th {
+  @apply text-left font-semibold text-gray-900 p-2 border-b-2 border-gray-300;
+}
+
+.markdown-content td {
+  @apply p-2 border-b border-gray-200;
+}
+
+.markdown-content tbody tr:hover {
+  @apply bg-gray-50;
+}

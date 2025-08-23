@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl">
+        <h1 class="text-2xl font-bold mb-4 text-gray-800">Account Dashboard</h1>
+        <!-- Tabs -->
+        <div class="mb-4">
+            <ul class="flex border-b">
+                <li class="mr-1">
+                    <button id="accountTab" class="px-4 py-2 font-medium text-gray-700 bg-gray-100 rounded-t-lg focus:outline-none active">Account</button>
+                </li>
+                <li class="mr-1">
+                    <button id="positionsTab" class="px-4 py-2 font-medium text-gray-700 bg-gray-100 rounded-t-lg focus:outline-none">Positions</button>
+                </li>
+            </ul>
+        </div>
+        <!-- Tab Content -->
+        <div id="accountContent" class="">
+            <div id="accountLoading" class="text-gray-600">Loading...</div>
+            <div id="accountError" class="text-red-600 hidden"></div>
+            <div class="overflow-x-auto hidden" id="accountTableContainer">
+                <table class="w-full text-sm text-left text-gray-600">
+                    <tbody id="accountTable" class="divide-y divide-gray-200">
+                        <!-- Account table rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="positionsContent" class="hidden">
+            <div id="positionsLoading" class="text-gray-600">Loading...</div>
+            <div id="positionsError" class="text-red-600 hidden"></div>
+            <div class="overflow-x-auto hidden" id="positionsTableContainer">
+                <table class="w-full text-sm text-left text-gray-600">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="py-2 px-4 font-medium text-gray-700">Symbol</th>
+                            <th class="py-2 px-4 font-medium text-gray-700">Quantity</th>
+                            <th class="py-2 px-4 font-medium text-gray-700">Market Value</th>
+                            <th class="py-2 px-4 font-medium text-gray-700">Asset Id</th>
+                            <th class="py-2 px-4 font-medium text-gray-700">Avg Entry Price</th>
+                            <th class="py-2 px-4 font-medium text-gray-700">Side</th>
+                            <th class="py-2 px-4 font-medium text-gray-700">Unrealized Pl</th>
+                            <th class="py-2 px-4 font-medium text-gray-700">Unrealized Pl Pc</th>
+                            <th class="py-2 px-4 font-medium text-gray-700">Unrealized Intraday Pl</th>
+                            <th class="py-2 px-4 font-medium text-gray-700">Unrealized Intraday Pl Pc</th>
+                            <th class="py-2 px-4 font-medium text-gray-700">Current Price</th>
+                            <th class="py-2 px-4 font-medium text-gray-700">Last Day Price</th>
+                            <th class="py-2 px-4 font-medium text-gray-700">Change Today</th>
+                        </tr>
+                    </thead>
+                    <tbody id="positionsTable" class="divide-y divide-gray-200">
+                        <!-- Positions table rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Define API URLs here
+        const ACCOUNT_API_URL = 'http://127.0.0.1:8000/accountinfo'; // Account API endpoint
+        const POSITIONS_API_URL = 'http://127.0.0.1:8000/allpositions'; // Positions API endpoint
+
+        function formatKey(key) {
+            return key
+                .replace(/([A-Z])/g, ' $1')
+                .replace(/_/g, ' ')
+                .replace(/^\w/, c => c.toUpperCase());
+        }
+
+        function populateAccountTable(data) {
+            const tableBody = document.getElementById('accountTable');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            // Calculate Portfolio Gained Value
+            const equity = parseFloat(data.getAccount.equity) || 0;
+            const portfolioGainedValue = equity - 100000;
+
+            // Add Portfolio Gained Value row first
+            const gainedValueRow = document.createElement('tr');
+            gainedValueRow.className = 'hover:bg-gray-50';
+            gainedValueRow.innerHTML = `
+                <td class="py-2 px-4 font-medium text-gray-700">Portfolio Gained Value</td>
+                <td class="py-2 px-4">${portfolioGainedValue.toFixed(2)}</td>
+            `;
+            tableBody.appendChild(gainedValueRow);
+
+            // Add remaining account rows
+            for (const [key, value] of Object.entries(data.getAccount)) {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="py-2 px-4 font-medium text-gray-700">${formatKey(key)}</td>
+                    <td class="py-2 px-4">${value === null ? 'N/A' : value}</td>
+                `;
+                tableBody.appendChild(row);
+            }
+            document.getElementById('accountTableContainer').classList.remove('hidden');
+        }
+
+        function populatePositionsTable(data) {
+            const tableBody = document.getElementById('positionsTable');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            data.positions.forEach(position => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50';
+                row.innerHTML = `
+                    <td class="py-2 px-4">${position.Symbol}</td>
+                    <td class="py-2 px-4">${position.Quantity}</td>
+                    <td class="py-2 px-4">${position['Market Value']}</td>
+                    <td class="py-2 px-4">${position['Asset Id']}</td>
+                    <td class="py-2 px-4">${position['Avg Entry Price']}</td>
+                    <td class="py-2 px-4">${position.Side}</td>
+                    <td class="py-2 px-4">${position['Unrealized Pl']}</td>
+                    <td class="py-2 px-4">${position['Unrealized Pl Pc']}</td>
+                    <td class="py-2 px-4">${position['Unrealized Intraday Pl']}</td>
+                    <td class="py-2 px-4">${position['Unrealized Intraday Pl Pc']}</td>
+                    <td class="py-2 px-4">${position['Current Price']}</td>
+                    <td class="py-2 px-4">${position['Last Day Price']}</td>
+                    <td class="py-2 px-4">${position['Change Today']}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            document.getElementById('positionsTableContainer').classList.remove('hidden');
+        }
+
+        async function fetchAccountData() {
+            const loading = document.getElementById('accountLoading');
+            const errorDiv = document.getElementById('accountError');
+            try {
+                const response = await fetch(ACCOUNT_API_URL);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                populateAccountTable(data);
+                loading.classList.add('hidden');
+            } catch (error) {
+                loading.classList.add('hidden');
+                errorDiv.textContent = `Error fetching account data: ${error.message}`;
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
+        async function fetchPositionsData() {
+            const loading = document.getElementById('positionsLoading');
+            const errorDiv = document.getElementById('positionsError');
+            try {
+                const response = await fetch(POSITIONS_API_URL);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                populatePositionsTable(data);
+                loading.classList.add('hidden');
+            } catch (error) {
+                loading.classList.add('hidden');
+                errorDiv.textContent = `Error fetching positions data: ${error.message}`;
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
+        // Tab switching logic
+        document.getElementById('accountTab').addEventListener('click', () => {
+            document.getElementById('accountTab').classList.add('active');
+            document.getElementById('positionsTab').classList.remove('active');
+            document.getElementById('accountContent').classList.remove('hidden');
+            document.getElementById('positionsContent').classList.add('hidden');
+            if (!document.getElementById('accountTableContainer').classList.contains('hidden')) return;
+            fetchAccountData();
+        });
+
+        document.getElementById('positionsTab').addEventListener('click', () => {
+            document.getElementById('positionsTab').classList.add('active');
+            document.getElementById('accountTab').classList.remove('active');
+            document.getElementById('positionsContent').classList.remove('hidden');
+            document.getElementById('accountContent').classList.add('hidden');
+            if (!document.getElementById('positionsTableContainer').classList.contains('hidden')) return;
+            fetchPositionsData();
+        });
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('accountTab').classList.add('active');
+            fetchAccountData();
+        });
+    </script>
+
+    <style>
+        .active {
+            background-color: white;
+            color: #1f2937;
+            border-bottom: 2px solid #3b82f6;
+        }
+    </style>
+</body>
+</html>
+

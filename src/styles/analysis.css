@@ -1,0 +1,82 @@
+/* Responsive analysis page styles */
+
+/* Use CSS container queries for better responsiveness */
+@supports (container-type: inline-size) {
+  .analysis-container {
+    container-type: inline-size;
+  }
+}
+
+/* Dynamic height calculation for content areas - removed as we're using flexbox */
+/* Using flexbox approach instead for better responsiveness */
+
+/* Ensure images scale properly */
+.chart-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Better scrollbar styling for content areas */
+.custom-scrollbar {
+  overflow-y: auto !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Force proper scrollbar visibility */
+.custom-scrollbar::-webkit-scrollbar {
+  display: block !important;
+}
+
+/* Responsive grid adjustments */
+@media (min-width: 1280px) and (max-width: 1536px) {
+  .analysis-grid {
+    grid-template-columns: minmax(450px, 1fr) minmax(450px, 1fr);
+  }
+}
+
+@media (min-width: 1536px) {
+  .analysis-grid {
+    grid-template-columns: minmax(500px, 1fr) minmax(500px, 1fr);
+  }
+}
+
+/* Ensure full height usage */
+.h-full {
+  height: 100%;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.min-h-0 {
+  min-height: 0;
+}
+
+/* Prevent content from overflowing */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
