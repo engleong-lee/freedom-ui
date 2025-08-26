@@ -1,34 +1,146 @@
-/* Responsive analysis page styles */
+/* Enhanced mobile-responsive analysis page styles */
 
-/* Full height layout with scrollbar support
-   - Main container uses h-screen (100vh) 
-   - Content areas use flex-1 to expand
-   - overflow-hidden on parent containers
-   - overflow-y-auto on scrollable content
-   - min-h-0 to allow flex children to shrink below content size
-*/
+/* Full height layout with scrollbar support */
+.analysis-container {
+  container-type: inline-size;
+}
 
-/* Use CSS container queries for better responsiveness */
-@supports (container-type: inline-size) {
-  .analysis-container {
-    container-type: inline-size;
+/* Mobile-first approach for better content scaling */
+@media (max-width: 640px) {
+  /* Adjust main content padding on mobile */
+  .analysis-main-content {
+    padding: 0.5rem !important;
+  }
+  
+  /* Stack date and symbol selectors vertically on mobile */
+  .analysis-selectors {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+  
+  .analysis-selectors > div {
+    width: 100% !important;
+  }
+  
+  /* Optimize analysis details for mobile */
+  .analysis-details-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+  
+  /* Make tabs scrollable and touch-friendly on mobile */
+  .analysis-tabs {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  
+  .analysis-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .analysis-tabs button {
+    min-width: fit-content !important;
+    padding: 1rem 1.25rem !important;
+    font-size: 0.875rem !important;
+    flex-shrink: 0;
+  }
+  
+  /* Improve content area height on mobile */
+  .analysis-content-area {
+    min-height: 400px !important;
+    max-height: calc(100vh - 320px) !important;
+    overflow-y: auto !important;
+  }
+  
+  /* Better spacing for markdown content */
+  .analysis-markdown-content {
+    padding: 1rem !important;
+    font-size: 0.875rem !important;
+    line-height: 1.6 !important;
+  }
+  
+  .analysis-markdown-content h1,
+  .analysis-markdown-content h2 {
+    font-size: 1.25rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .analysis-markdown-content h3 {
+    font-size: 1.125rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .analysis-markdown-content p,
+  .analysis-markdown-content ul,
+  .analysis-markdown-content ol {
+    margin-bottom: 0.75rem !important;
+  }
+  
+  /* Optimize chart view for mobile */
+  .chart-container {
+    padding: 0.75rem !important;
+  }
+  
+  .chart-tabs button {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  /* Touch-friendly button sizes on mobile */
+  button {
+    min-height: 44px;
+  }
+  
+  select, input {
+    min-height: 44px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Mobile-specific detail items */
+  .detail-item-mobile {
+    min-width: 0;
+    flex: 1;
   }
 }
 
-/* Dynamic height calculation for content areas - removed as we're using flexbox */
-/* Using flexbox approach instead for better responsiveness */
-
-/* Ensure images scale properly */
-.chart-image {
-  width: 100%;
-  height: auto;
-  display: block;
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .analysis-details-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  .analysis-content-area {
+    min-height: 500px !important;
+  }
+  
+  .analysis-tabs button {
+    padding: 0.875rem 1.5rem !important;
+  }
 }
 
-/* Better scrollbar styling for content areas */
+/* Desktop and general scrolling improvements */
+.analysis-content-area {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  height: auto !important;
+  max-height: calc(100vh - 280px) !important;
+  min-height: 400px !important;
+}
+
+/* Fix for parent container to allow scrolling */
+.analysis-content-area:parent,
+.analysis-markdown-content:parent {
+  overflow: visible !important;
+}
+
+/* Better scrollbar styling for all devices */
 .custom-scrollbar {
   overflow-y: auto !important;
   scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Firefox scrollbar styling */
@@ -39,18 +151,18 @@
 
 /* Webkit scrollbar styling */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: #888;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
@@ -62,7 +174,17 @@
   display: block !important;
 }
 
-/* Responsive grid adjustments */
+/* Responsive grid adjustments for larger screens */
+@media (min-width: 1024px) {
+  .analysis-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .analysis-content-area {
+    min-height: 600px !important;
+  }
+}
+
 @media (min-width: 1280px) and (max-width: 1536px) {
   .analysis-grid {
     grid-template-columns: minmax(450px, 1fr) minmax(450px, 1fr);
@@ -75,7 +197,7 @@
   }
 }
 
-/* Ensure full height usage */
+/* Ensure proper flex behavior */
 .h-full {
   height: 100%;
 }
@@ -88,11 +210,35 @@
   min-height: 0;
 }
 
-/* Prevent content from overflowing */
+/* Prevent content overflow */
 .overflow-hidden {
   overflow: hidden;
 }
 
 .overflow-y-auto {
   overflow-y: auto;
+}
+
+/* Chart image responsive styles */
+.chart-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .chart-image {
+    max-height: 300px;
+  }
+}
+
+/* Ensure content uses full width on mobile */
+@media (max-width: 640px) {
+  .mobile-full-width {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }

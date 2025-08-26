@@ -79,7 +79,33 @@ Google has been consolidating in a tight range between $140-$145 for the past tw
 - Secondary target: $152
 
 **Risk Management:**
-Stop loss recommended below $139 to maintain favorable risk/reward ratio.`,
+Stop loss recommended below $139 to maintain favorable risk/reward ratio.
+
+**Additional Technical Analysis:**
+
+The stock has been forming a clear uptrend channel since the beginning of the month. The 50-day moving average is currently at $141.50 and acting as strong support. The 200-day moving average sits at $135, providing a solid floor for any potential pullbacks.
+
+**Fibonacci Retracement Levels:**
+- 23.6%: $143.20
+- 38.2%: $141.80
+- 50.0%: $140.50
+- 61.8%: $139.20
+
+**Market Sentiment Analysis:**
+
+Recent analyst upgrades from major investment banks have been positive, with average price targets ranging from $150 to $155. Institutional buying has increased over the past week, with notable accumulation phases during market dips.
+
+**Options Flow Analysis:**
+
+Unusual options activity detected with significant call buying at the $150 strike for next month's expiration. Put/Call ratio is currently at 0.45, indicating bullish sentiment among options traders.
+
+**Relative Strength Analysis:**
+
+GOOGL is showing relative strength compared to the broader tech sector (XLK). The stock has outperformed the NASDAQ by 3.2% over the past month and continues to show leadership characteristics.
+
+**Volume Profile Analysis:**
+
+The volume point of control (VPOC) sits at $142.50, which aligns with our current consolidation zone. Above-average volume nodes are visible at $145 and $148, suggesting these as key resistance levels to watch.`,
       analysis_prompt: 'Evaluate GOOGL consolidation pattern and momentum indicators',
       decision: {
         symbol: 'GOOGL',
@@ -88,8 +114,7 @@ Stop loss recommended below $139 to maintain favorable risk/reward ratio.`,
         resistance: 145.00,
         primary_action: 'HOLD',
         new_trade: null
-      },
-      chart_3month: 'https://via.placeholder.com/800x400/EF4444/FFFFFF?text=GOOGL+3+Month+Chart',
+      },      chart_3month: 'https://via.placeholder.com/800x400/EF4444/FFFFFF?text=GOOGL+3+Month+Chart',
       chart_1year: 'https://via.placeholder.com/800x400/F59E0B/FFFFFF?text=GOOGL+1+Year+Chart',
       remarks: 'Waiting for breakout confirmation'
     },
@@ -118,8 +143,7 @@ Consider short position or protective puts if price breaks below $415 with volum
       analysis_prompt: 'Analyze MSFT for potential reversal signals',
       decision: {
         symbol: 'MSFT',
-        analysis_date: baseDate,
-        support: 415.00,
+        analysis_date: baseDate,        support: 415.00,
         resistance: 425.00,
         primary_action: 'SELL',
         new_trade: {
@@ -149,8 +173,7 @@ Tesla exhibiting volatile but bullish behavior typical of the stock. Key points:
 - Options flow showing heavy call buying
 
 **Volatility Metrics:**
-- ATR at 12.5 (high volatility environment)
-- Bollinger Bands expanding
+- ATR at 12.5 (high volatility environment)- Bollinger Bands expanding
 
 **Trading Approach:**
 Use wider stops due to volatility. Consider scaling into positions.`,
@@ -181,7 +204,6 @@ Use wider stops due to volatility. Consider scaling into positions.`,
       analysis_content: `**Technical Analysis Summary for META:**
 
 Meta Platforms showing impressive strength with consistent higher lows pattern.
-
 **Trend Analysis:**
 - Clear uptrend channel intact since October
 - Testing upper channel boundary at $520
@@ -212,7 +234,6 @@ Current setup offers 2:1 risk/reward ratio for continuation play.`,
     }
   ];
 };
-
 export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [analyses, setAnalyses] = useState<Analysis[]>([]);
@@ -242,8 +263,7 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
         const fetchedAnalyses = await fetchAnalysesByDate(formattedDate);
         setAnalyses(fetchedAnalyses);
       }
-    } catch (err) {
-      console.error('Error fetching analyses:', err);
+    } catch (err) {      console.error('Error fetching analyses:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch analyses');
       setAnalyses([]);
     } finally {
@@ -273,8 +293,7 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
     // Update current analysis if it's the one being updated
     if (currentAnalysis && currentAnalysis.recordId === recordId) {
       setCurrentAnalysis({
-        ...currentAnalysis,
-        remarks: newRemarks
+        ...currentAnalysis,        remarks: newRemarks
       });
     }
   };
@@ -291,21 +310,20 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
     <div className="h-screen flex flex-col">
       {/* Mock Data Mode Indicator */}
       {mockDataMode && (
-        <div className="mb-4 bg-amber-50 border border-amber-200 rounded-lg p-3 flex items-center gap-2 flex-shrink-0">
+        <div className="mb-3 sm:mb-4 bg-amber-50 border border-amber-200 rounded-lg p-2 sm:p-3 flex items-center gap-2 flex-shrink-0">
           <svg className="h-5 w-5 text-amber-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span className="text-sm text-amber-800 font-medium">
+          <span className="text-xs sm:text-sm text-amber-800 font-medium">
             Mock Data Mode Active - Displaying sample data for demonstration purposes
           </span>
         </div>
       )}
       
-      {/* Header with inline controls */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 flex-shrink-0">
-        <h2 className="text-2xl font-bold">Analysis & Decision</h2>
-        
-        <div className="flex flex-col sm:flex-row gap-4">
+      {/* Header with mobile-optimized controls */}
+      <div className="px-3 sm:px-4 lg:px-6 py-3 sm:py-4 bg-white shadow-sm border-b analysis-main-content flex-shrink-0">
+        <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Analysis & Decision</h2>        
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 analysis-selectors">
           <DateSelector onDateSelect={handleDateSelect} inline />
           <SymbolDropdown 
             analyses={analyses} 
@@ -316,9 +334,10 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
         </div>
       </div>
 
-      <div className="flex-1 min-h-0 overflow-hidden">
+      {/* Main content area with responsive grid */}
+      <div className="flex-1 min-h-0 overflow-hidden p-3 sm:p-4 lg:p-6">
         {loading && (
-          <div className="flex items-center justify-center p-8 h-full overflow-hidden">
+          <div className="flex items-center justify-center p-8 h-full">
             <div className="flex flex-col items-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
               <p className="mt-4 text-gray-600">Loading analyses...</p>
@@ -327,13 +346,12 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
         )}
 
         {error && (
-          <div className="bg-red-50 p-4 rounded-lg border border-red-200 overflow-auto">
+          <div className="bg-red-50 p-4 rounded-lg border border-red-200">
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-              </div>
+                </svg>              </div>
               <div className="ml-3">
                 <h3 className="text-sm font-medium text-red-800">Error loading data</h3>
                 <div className="mt-2 text-sm text-red-700">
@@ -346,111 +364,156 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
 
         {currentAnalysis && (
           <div className="flex flex-col h-full overflow-hidden">
-            <AnalysisDetails analysis={currentAnalysis} />
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6 mt-6 flex-1 min-h-0 overflow-hidden">
-              <div className="min-w-0 h-full overflow-hidden">
+            {/* Analysis Details - passes className for mobile styling */}
+            <AnalysisDetails analysis={currentAnalysis} className="mb-3 sm:mb-4" />
+            
+            {/* Responsive grid: Single column on mobile/tablet, 2 columns on lg+ */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 flex-1 min-h-0 analysis-grid">
+              {/* Left column - Analysis content */}
+              <div className="flex flex-col min-h-0">
                 <AnalysisContent 
                   analysis={currentAnalysis} 
                   onRemarksUpdate={handleRemarksUpdate}
+                  className="flex-1"
                 />
               </div>
               
-              {/* Chart Tabs Section */}
-              <div className="min-w-0 h-full overflow-hidden">
+              {/* Right column - Chart (hidden on mobile, shown on lg+) */}
+              <div className="hidden lg:flex flex-col min-h-0">
                 <div className="bg-white rounded-lg shadow-sm flex flex-col h-full overflow-hidden">
-                <div className="border-b border-gray-200 flex-shrink-0">
-                  <nav className="flex -mb-px">
+                  <div className="border-b border-gray-200 flex-shrink-0 overflow-x-auto chart-tabs">                    <nav className="flex -mb-px min-w-max">
+                      <button 
+                        className={`py-3 px-4 sm:py-4 sm:px-6 border-b-2 font-medium text-sm whitespace-nowrap flex-shrink-0 ${
+                          activeChartTab === '3month' 
+                            ? 'border-blue-500 text-blue-600' 
+                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        }`} 
+                        onClick={() => setActiveChartTab('3month')}
+                      >
+                        3 Month Chart
+                      </button>
+                      <button 
+                        className={`py-3 px-4 sm:py-4 sm:px-6 border-b-2 font-medium text-sm whitespace-nowrap flex-shrink-0 ${
+                          activeChartTab === '1year' 
+                            ? 'border-blue-500 text-blue-600' 
+                            : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                        }`} 
+                        onClick={() => setActiveChartTab('1year')}
+                      >
+                        1 Year Chart
+                      </button>
+                    </nav>
+                  </div>
+                  
+                  <div className="p-4 flex-1 min-h-0 overflow-y-auto custom-scrollbar">
+                    <div className="space-y-4">
+                      {activeChartTab === '3month' && (
+                        <div>
+                          {currentAnalysis.chart_3month ? (
+                            <>                              <img 
+                                src={getImageUrl(currentAnalysis.chart_3month)}
+                                alt="3 Month Chart"
+                                className="w-full h-auto rounded-lg chart-image"
+                                onError={(e) => {
+                                  const target = e.currentTarget;
+                                  target.style.display = 'none';
+                                  const fallback = target.nextElementSibling;
+                                  if (fallback) {
+                                    (fallback as HTMLElement).style.display = 'block';
+                                  }
+                                }}
+                              />
+                              <div className="hidden bg-gray-100 rounded-lg p-8 text-center text-gray-500">
+                                <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <p className="mt-2">3 Month Chart unavailable</p>
+                              </div>
+                            </>
+                          ) : (
+                            <ChartView symbol={currentAnalysis.symbol} />
+                          )}
+                        </div>
+                      )}
+                      
+                      {activeChartTab === '1year' && (
+                        <div>
+                          {currentAnalysis.chart_1year ? (
+                            <>                              <img 
+                                src={getImageUrl(currentAnalysis.chart_1year)}
+                                alt="1 Year Chart"
+                                className="w-full h-auto rounded-lg chart-image"
+                                onError={(e) => {
+                                  const target = e.currentTarget;
+                                  target.style.display = 'none';
+                                  const fallback = target.nextElementSibling;
+                                  if (fallback) {
+                                    (fallback as HTMLElement).style.display = 'block';
+                                  }
+                                }}
+                              />
+                              <div className="hidden bg-gray-100 rounded-lg p-8 text-center text-gray-500">
+                                <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                <p className="mt-2">1 Year Chart unavailable</p>
+                              </div>
+                            </>
+                          ) : (
+                            <ChartView symbol={currentAnalysis.symbol} />
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>            
+            {/* Chart for mobile and tablets - shown below content on mobile/tablet only */}
+            <div className="lg:hidden mt-4">
+              <div className="bg-white rounded-lg shadow-sm p-3 sm:p-4 chart-container">
+                <div className="border-b border-gray-200 mb-3 sm:mb-4">
+                  <nav className="flex -mb-px chart-tabs">
                     <button 
-                      className={`py-3 sm:py-4 px-4 sm:px-6 border-b-2 font-medium text-sm whitespace-nowrap ${
+                      className={`py-2 px-3 sm:py-3 sm:px-4 border-b-2 font-medium text-sm transition-colors ${
                         activeChartTab === '3month' 
                           ? 'border-blue-500 text-blue-600' 
                           : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                       }`} 
                       onClick={() => setActiveChartTab('3month')}
                     >
-                      3 Month Chart
+                      3 Month
                     </button>
                     <button 
-                      className={`py-3 sm:py-4 px-4 sm:px-6 border-b-2 font-medium text-sm whitespace-nowrap ${
+                      className={`py-2 px-3 sm:py-3 sm:px-4 border-b-2 font-medium text-sm transition-colors ${
                         activeChartTab === '1year' 
                           ? 'border-blue-500 text-blue-600' 
                           : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                       }`} 
                       onClick={() => setActiveChartTab('1year')}
                     >
-                      1 Year Chart
+                      1 Year
                     </button>
                   </nav>
                 </div>
                 
-                <div className="p-4 flex-1 min-h-0 overflow-y-auto custom-scrollbar">
-                  <div className="space-y-4">
-                    {activeChartTab === '3month' && (
-                      <div>
-                        {currentAnalysis.chart_3month ? (
-                          <>
-                            <img 
-                              src={getImageUrl(currentAnalysis.chart_3month)}
-                              alt="3 Month Chart"
-                              className="w-full h-auto rounded-lg"
-                              onError={(e) => {
-                                const target = e.currentTarget;
-                                target.style.display = 'none';
-                                const fallback = target.nextElementSibling;
-                                if (fallback) {
-                                  (fallback as HTMLElement).style.display = 'block';
-                                }
-                              }}
-                            />
-                            <div className="hidden bg-gray-100 rounded-lg p-8 text-center text-gray-500">
-                              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                              </svg>
-                              <p className="mt-2">3 Month Chart unavailable</p>
-                            </div>
-                          </>
-                        ) : (
-                          <div className="bg-gray-100 rounded-lg p-8 text-center text-gray-500 w-full">
-                            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                            </svg>
-                            <p className="mt-2">3 Month Chart not available</p>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                    
-                    {activeChartTab === '1year' && (
-                      <div>
-                        {currentAnalysis.chart_1year ? (
-                          <>
-                            <img 
-                              src={getImageUrl(currentAnalysis.chart_1year)}
-                              alt="1 Year Chart"
-                              className="w-full h-auto rounded-lg"
-                              onError={(e) => {
-                                const target = e.currentTarget;
-                                target.style.display = 'none';
-                                const fallback = target.nextElementSibling;
-                                if (fallback) {
-                                  (fallback as HTMLElement).style.display = 'block';
-                                }
-                              }}
-                            />
-                            <div className="hidden bg-gray-100 rounded-lg p-8 text-center text-gray-500">
-                              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                              </svg>
-                              <p className="mt-2">1 Year Chart unavailable</p>
-                            </div>
-                          </>
-                        ) : (
-                          <ChartView symbol={currentAnalysis.symbol} />
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <div className="overflow-hidden">
+                  {activeChartTab === '3month' && currentAnalysis.chart_3month && (                    <img 
+                      src={getImageUrl(currentAnalysis.chart_3month)}
+                      alt="3 Month Chart"
+                      className="w-full h-auto rounded-lg chart-image"
+                    />
+                  )}
+                  {activeChartTab === '1year' && currentAnalysis.chart_1year && (
+                    <img 
+                      src={getImageUrl(currentAnalysis.chart_1year)}
+                      alt="1 Year Chart"
+                      className="w-full h-auto rounded-lg chart-image"
+                    />
+                  )}
+                  {!currentAnalysis.chart_3month && !currentAnalysis.chart_1year && (
+                    <ChartView symbol={currentAnalysis.symbol} />
+                  )}
                 </div>
               </div>
             </div>
@@ -463,8 +526,7 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
               <div className="flex-shrink-0">
                 <svg className="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                </svg>
-              </div>
+                </svg>              </div>
               <div className="ml-3">
                 <p className="text-sm">Please select a symbol from the dropdown to view analysis details.</p>
               </div>
@@ -473,17 +535,29 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
         )}
 
         {!loading && !currentAnalysis && analyses.length === 0 && selectedDate && !error && (
-          <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200 text-yellow-700">
-            <div className="flex">
-              <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <div className="ml-3">
-                <p className="text-sm">No analysis records found for the selected date. Please select another date.</p>
-              </div>
-            </div>
+          <div className="bg-gray-50 p-8 rounded-lg text-center">
+            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <h3 className="mt-2 text-sm font-medium text-gray-900">No analyses found</h3>
+            <p className="mt-1 text-sm text-gray-500">
+              No analyses available for {selectedDate.toLocaleDateString()}.
+            </p>
+            <p className="mt-1 text-sm text-gray-500">
+              Try selecting a different date.
+            </p>
+          </div>
+        )}
+
+        {!loading && !selectedDate && (
+          <div className="bg-gray-50 p-8 rounded-lg text-center">
+            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <h3 className="mt-2 text-sm font-medium text-gray-900">Select a date</h3>
+            <p className="mt-1 text-sm text-gray-500">
+              Please select a date to view analyses.
+            </p>
           </div>
         )}
       </div>

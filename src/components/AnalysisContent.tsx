@@ -8,6 +8,7 @@ import '../styles/analysis.css';
 interface AnalysisContentProps {
   analysis: Analysis;
   onRemarksUpdate?: (recordId: number, remarks: string) => void;
+  className?: string;
 }
 
 // Custom components for ReactMarkdown
@@ -120,7 +121,7 @@ const markdownComponents: Components = {
   ),
 };
 
-export function AnalysisContent({ analysis, onRemarksUpdate }: AnalysisContentProps) {
+export function AnalysisContent({ analysis, onRemarksUpdate, className }: AnalysisContentProps) {
   const [activeTab, setActiveTab] = useState<'analysis' | 'prompt' | 'decision' | 'remarks'>('analysis');
   const [remarks, setRemarks] = useState<string>('');
   const [isSaving, setIsSaving] = useState(false);
@@ -163,11 +164,11 @@ export function AnalysisContent({ analysis, onRemarksUpdate }: AnalysisContentPr
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm flex flex-col h-full overflow-hidden">
-      <div className="border-b border-gray-200 flex-shrink-0">
-        <nav className="flex -mb-px overflow-x-auto">
+    <div className={`bg-white rounded-lg shadow-sm flex flex-col h-full ${className || ''}`}>
+      <div className="border-b border-gray-200 flex-shrink-0 overflow-x-auto analysis-tabs">
+        <nav className="flex -mb-px min-w-max">
           <button 
-            className={`py-3 sm:py-4 px-3 sm:px-6 border-b-2 font-medium text-sm transition-colors whitespace-nowrap ${
+            className={`py-3 px-4 sm:py-4 sm:px-6 border-b-2 font-medium text-sm transition-colors whitespace-nowrap flex-shrink-0 ${
               activeTab === 'analysis' 
                 ? 'border-blue-500 text-blue-600' 
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -177,7 +178,7 @@ export function AnalysisContent({ analysis, onRemarksUpdate }: AnalysisContentPr
             Analysis
           </button>
           <button 
-            className={`py-3 sm:py-4 px-3 sm:px-6 border-b-2 font-medium text-sm transition-colors whitespace-nowrap ${
+            className={`py-3 px-4 sm:py-4 sm:px-6 border-b-2 font-medium text-sm transition-colors whitespace-nowrap flex-shrink-0 ${
               activeTab === 'prompt' 
                 ? 'border-blue-500 text-blue-600' 
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -187,7 +188,7 @@ export function AnalysisContent({ analysis, onRemarksUpdate }: AnalysisContentPr
             Analysis Prompt
           </button>
           <button 
-            className={`py-3 sm:py-4 px-3 sm:px-6 border-b-2 font-medium text-sm transition-colors whitespace-nowrap ${
+            className={`py-3 px-4 sm:py-4 sm:px-6 border-b-2 font-medium text-sm transition-colors whitespace-nowrap flex-shrink-0 ${
               activeTab === 'decision' 
                 ? 'border-blue-500 text-blue-600' 
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -197,7 +198,7 @@ export function AnalysisContent({ analysis, onRemarksUpdate }: AnalysisContentPr
             Decision
           </button>
           <button 
-            className={`py-3 sm:py-4 px-3 sm:px-6 border-b-2 font-medium text-sm transition-colors whitespace-nowrap ${
+            className={`py-3 px-4 sm:py-4 sm:px-6 border-b-2 font-medium text-sm transition-colors whitespace-nowrap flex-shrink-0 ${
               activeTab === 'remarks' 
                 ? 'border-blue-500 text-blue-600' 
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -209,9 +210,9 @@ export function AnalysisContent({ analysis, onRemarksUpdate }: AnalysisContentPr
         </nav>
       </div>
       
-      <div className="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto custom-scrollbar">
+      <div className="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto custom-scrollbar analysis-markdown-content analysis-content-area">
         {activeTab === 'analysis' && (
-          <div className="max-w-none h-full overflow-y-auto">
+          <div className="max-w-none">
             <ReactMarkdown components={markdownComponents}>
               {analysis.analysis_content}
             </ReactMarkdown>
@@ -219,7 +220,7 @@ export function AnalysisContent({ analysis, onRemarksUpdate }: AnalysisContentPr
         )}
         
         {activeTab === 'prompt' && (
-          <div className="max-w-none h-full overflow-y-auto">
+          <div className="max-w-none">
             <ReactMarkdown components={markdownComponents}>
               {analysis.analysis_prompt}
             </ReactMarkdown>
@@ -227,19 +228,19 @@ export function AnalysisContent({ analysis, onRemarksUpdate }: AnalysisContentPr
         )}
         
         {activeTab === 'decision' && (
-          <pre className="bg-gray-50 p-4 rounded overflow-auto text-sm font-mono text-gray-700 h-full">
+          <pre className="bg-gray-50 p-4 rounded text-sm font-mono text-gray-700">
             {JSON.stringify(analysis.decision, null, 2)}
           </pre>
         )}
         
         {activeTab === 'remarks' && (
-          <div className="flex flex-col h-full overflow-hidden">
-            <div className="flex-1 min-h-0 overflow-hidden">
+          <div className="flex flex-col">
+            <div className="flex-1 mb-4">
               <textarea
                 value={remarks}
                 onChange={(e) => setRemarks(e.target.value)}
                 placeholder="Enter your remarks here..."
-                className="w-full h-full p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent overflow-y-auto"
+                className="w-full h-48 p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 disabled={isSaving}
               />
             </div>
