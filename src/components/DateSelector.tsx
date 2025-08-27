@@ -20,18 +20,19 @@ export function DateSelector({ onDateSelect, inline = false }: DateSelectorProps
 
   if (inline) {
     return (
-      <div className="flex items-center gap-2">
-        <label className="text-sm font-medium text-gray-700 whitespace-nowrap">
+      <div className="flex items-center w-full">
+        <label className="hidden sm:inline text-sm font-medium text-gray-700 whitespace-nowrap mr-2">
           Select Date:
         </label>
-        <div className="relative">
+        <div className="relative w-full">
           <DatePicker 
             selected={selectedDate} 
             onChange={handleDateChange} 
             dateFormat="yyyy-MM-dd" 
-            className="pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm" 
+            className="w-full pl-8 pr-2 py-1.5 sm:py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm" 
+            placeholderText="Date"
           />
-          <CalendarIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
+          <CalendarIcon className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" size={14} />
         </div>
       </div>
     );

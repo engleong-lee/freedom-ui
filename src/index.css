@@ -82,3 +82,57 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+/* Mobile optimization for date picker */
+@media (max-width: 640px) {
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
+  
+  .react-datepicker__input-container input {
+    font-size: 12px !important;
+    padding: 6px 8px 6px 28px !important;
+    min-width: 0;
+  }
+  
+  /* Compact the date picker popup on mobile */
+  .react-datepicker {
+    font-size: 0.75rem;
+  }
+  
+  .react-datepicker__header {
+    padding: 4px 0;
+  }
+  
+  .react-datepicker__day,
+  .react-datepicker__day-name {
+    width: 1.7rem;
+    line-height: 1.7rem;
+    margin: 0.05rem;
+  }
+  
+  /* Make header more compact */
+  .analysis-main-content h2 {
+    line-height: 1.2;
+  }
+  
+  /* Ensure selectors stay on one line on mobile */
+  .analysis-selectors {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
+  }
+  
+  .analysis-selectors > div {
+    flex: 1;
+    min-width: 0;
+    max-width: 50%;
+  }
+  
+  /* Make inputs smaller on mobile */
+  .analysis-selectors input,
+  .analysis-selectors select {
+    font-size: 12px !important;
+    min-width: 0;
+  }
+}

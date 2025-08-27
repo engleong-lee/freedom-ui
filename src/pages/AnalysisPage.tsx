@@ -6,6 +6,7 @@ import { AnalysisContent } from '../components/AnalysisContent';
 import { ChartView } from '../components/ChartView';
 import { Analysis } from '../types/analysis';
 import { fetchAnalysesByDate, formatDateForAPI, getImageUrl } from '../utils/api';
+import { ChevronDown, ChevronUp, Filter } from 'lucide-react';
 import '../styles/analysis.css';
 
 interface AnalysisPageProps {
@@ -243,6 +244,7 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeChartTab, setActiveChartTab] = useState<'3month' | '1year'>('3month');
+  const [filtersCollapsed, setFiltersCollapsed] = useState(false);
 
   const handleDateSelect = async (date: Date) => {
     setSelectedDate(date);
@@ -321,18 +323,44 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
         </div>
       )}
       
-      {/* Header with mobile-optimized controls */}
-      <div className="px-3 sm:px-4 lg:px-6 py-3 sm:py-4 bg-white shadow-sm border-b analysis-main-content flex-shrink-0">
-        <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Analysis & Decision</h2>        
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 analysis-selectors">
-          <DateSelector onDateSelect={handleDateSelect} inline />
-          <SymbolDropdown 
-            analyses={analyses} 
-            selectedSymbol={selectedSymbol} 
-            onSymbolSelect={handleSymbolSelect}
-            inline 
-          />
+      {/* Header with mobile-optimized collapsible controls */}
+      <div className="px-3 sm:px-4 lg:px-6 py-2 sm:py-4 bg-white shadow-sm border-b analysis-main-content flex-shrink-0">
+        {/* Title and toggle button for mobile */}
+        <div className="flex items-center justify-between mb-2 sm:mb-4">
+          <h2 className="text-lg sm:text-2xl font-bold">Analysis & Decision</h2>
+          <button 
+            onClick={() => setFiltersCollapsed(!filtersCollapsed)}
+            className="sm:hidden p-1.5 hover:bg-gray-100 rounded-md transition-colors flex items-center gap-1 text-sm text-gray-600"
+            aria-label={filtersCollapsed ? "Show filters" : "Hide filters"}
+          >
+            <Filter size={16} />
+            {filtersCollapsed ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
+          </button>
         </div>
+        
+        {/* Collapsible selectors section */}
+        <div className={`${filtersCollapsed ? 'hidden' : 'flex'} sm:flex flex-row gap-2 sm:gap-4 analysis-selectors w-full transition-all duration-200`}>
+          <div className="flex-1 min-w-0">
+            <DateSelector onDateSelect={handleDateSelect} inline />
+          </div>
+          <div className="flex-1 min-w-0">
+            <SymbolDropdown 
+              analyses={analyses} 
+              selectedSymbol={selectedSymbol} 
+              onSymbolSelect={handleSymbolSelect}
+              inline 
+            />
+          </div>
+        </div>
+        
+        {/* Compact info bar when collapsed (mobile only) */}
+        {filtersCollapsed && selectedSymbol && selectedDate && (
+          <div className="sm:hidden text-xs text-gray-600 flex items-center gap-2">
+            <span className="font-medium">{selectedDate.toISOString().split('T')[0]}</span>
+            <span>•</span>
+            <span className="font-medium">{selectedSymbol}</span>
+          </div>
+        )}
       </div>
 
       {/* Main content area with responsive grid */}

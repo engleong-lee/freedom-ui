@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, TrendingUp } from 'lucide-react';
 import { Analysis } from '../types/analysis';
 
 interface SymbolDropdownProps {
@@ -18,19 +18,19 @@ export function SymbolDropdown({
   
   if (inline) {
     return (
-      <div className="flex items-center gap-2">
-        <label className="text-sm font-medium text-gray-700 whitespace-nowrap">
+      <div className="flex items-center w-full">
+        <label className="hidden sm:inline text-sm font-medium text-gray-700 whitespace-nowrap mr-2">
           Select Symbol:
         </label>
-        <div className="relative">
+        <div className="relative w-full">
           <select 
             value={selectedSymbol || ''} 
             onChange={e => onSymbolSelect(e.target.value)} 
-            className="pl-3 pr-10 py-2 text-sm border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md appearance-none" 
+            className="w-full pl-2 pr-7 py-1.5 sm:py-2 text-xs sm:text-sm border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-md appearance-none truncate" 
             disabled={analyses.length === 0}
           >
             <option value="" disabled>
-              {analyses.length === 0 ? 'No data' : 'Choose symbol'}
+              {analyses.length === 0 ? 'No data' : 'Symbol'}
             </option>
             {analyses.map(analysis => (
               <option key={analysis.symbol} value={analysis.symbol}>
@@ -38,8 +38,8 @@ export function SymbolDropdown({
               </option>
             ))}
           </select>
-          <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-            <ChevronDown className="h-4 w-4 text-gray-400" />
+          <div className="absolute inset-y-0 right-0 flex items-center px-1 pointer-events-none">
+            <ChevronDown className="h-3 w-3 text-gray-400" />
           </div>
         </div>
       </div>

@@ -39,14 +39,22 @@
     padding: 0.5rem !important;
   }
   
-  /* Stack date and symbol selectors vertically on mobile */
-  .analysis-selectors {
-    flex-direction: column !important;
-    gap: 0.75rem !important;
+  /* Keep date and symbol selectors on one line on mobile */
+  .analysis-selectors:not(.hidden) {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+  
+  .analysis-selectors.hidden {
+    display: none !important;
   }
   
   .analysis-selectors > div {
-    width: 100% !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+    max-width: 50% !important;
   }
   
   /* Optimize analysis details for mobile */
