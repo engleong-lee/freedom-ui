@@ -5,6 +5,33 @@
   container-type: inline-size;
 }
 
+/* Smooth transitions for collapsible elements */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+/* Collapsible container states */
+.max-h-0 {
+  max-height: 0;
+}
+
+.max-h-96 {
+  max-height: 24rem;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
 /* Mobile-first approach for better content scaling */
 @media (max-width: 640px) {
   /* Adjust main content padding on mobile */

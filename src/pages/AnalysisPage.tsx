@@ -24,7 +24,7 @@ const generateMockData = (date: Date): Analysis[] => {
       datetime: `${baseDate}T09:30:00`,
       symbol: 'AAPL',
       exchange: 'NASDAQ',
-      trade_type: 'LONG',
+      trade_type: 'NO_ACTION',
       analysis_content: `**Technical Analysis Summary for AAPL:**
 
 The stock has shown strong bullish momentum over the past week, breaking above the key resistance level at $195. The RSI is currently at 65, indicating healthy momentum without being overbought.
@@ -64,7 +64,7 @@ The golden cross pattern formed last month continues to provide strong support.`
       datetime: `${baseDate}T10:15:00`,
       symbol: 'GOOGL',
       exchange: 'NASDAQ',
-      trade_type: 'LONG',
+      trade_type: 'NO_ACTION',
       analysis_content: `**Technical Analysis Summary for GOOGL:**
 
 Google has been consolidating in a tight range between $140-$145 for the past two weeks. This consolidation appears to be a bull flag pattern.
@@ -125,7 +125,7 @@ The volume point of control (VPOC) sits at $142.50, which aligns with our curren
       datetime: `${baseDate}T11:00:00`,
       symbol: 'MSFT',
       exchange: 'NASDAQ',
-      trade_type: 'SHORT',
+      trade_type: 'TREND',
       analysis_content: `**Technical Analysis Summary for MSFT:**
 
 Microsoft showing signs of exhaustion after reaching all-time highs. Several bearish signals emerging:
@@ -163,7 +163,7 @@ Consider short position or protective puts if price breaks below $415 with volum
       datetime: `${baseDate}T13:30:00`,
       symbol: 'TSLA',
       exchange: 'NASDAQ',
-      trade_type: 'LONG',
+      trade_type: 'NO_ACTION',
       analysis_content: `**Technical Analysis Summary for TSLA:**
 
 Tesla exhibiting volatile but bullish behavior typical of the stock. Key points:
@@ -201,7 +201,7 @@ Use wider stops due to volatility. Consider scaling into positions.`,
       datetime: `${baseDate}T14:45:00`,
       symbol: 'META',
       exchange: 'NASDAQ',
-      trade_type: 'LONG',
+      trade_type: 'SWING',
       analysis_content: `**Technical Analysis Summary for META:**
 
 Meta Platforms showing impressive strength with consistent higher lows pattern.
