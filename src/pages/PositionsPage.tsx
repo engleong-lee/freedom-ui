@@ -35,7 +35,7 @@ export function PositionsPage() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch('http://localhost:8000/allpositions');
+        const response = await fetch('/allpositions');
         
         if (!response.ok) {
           throw new Error(`Failed to fetch positions: ${response.statusText}`);

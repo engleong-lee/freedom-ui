@@ -17,6 +17,10 @@ export default defineConfig({
       '/accountinfo': {
         target: 'http://localhost:8000',
         changeOrigin: true,
+      },
+      '/allpositions': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
       }
     }
   }
