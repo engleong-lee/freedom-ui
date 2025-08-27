@@ -353,14 +353,7 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
           </div>
         </div>
         
-        {/* Compact info bar when collapsed (mobile only) */}
-        {filtersCollapsed && selectedSymbol && selectedDate && (
-          <div className="sm:hidden text-xs text-gray-600 flex items-center gap-2">
-            <span className="font-medium">{selectedDate.toISOString().split('T')[0]}</span>
-            <span>•</span>
-            <span className="font-medium">{selectedSymbol}</span>
-          </div>
-        )}
+
       </div>
 
       {/* Main content area with responsive grid */}
@@ -393,8 +386,8 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
 
         {currentAnalysis && (
           <div className="flex flex-col h-full overflow-hidden">
-            {/* Analysis Details - passes className for mobile styling */}
-            <AnalysisDetails analysis={currentAnalysis} className="mb-3 sm:mb-4 flex-shrink-0" />
+            {/* Analysis Details - hidden on mobile, visible on sm and up */}
+            <AnalysisDetails analysis={currentAnalysis} className="hidden sm:block mb-3 sm:mb-4 flex-shrink-0" />
             
             {/* Desktop layout: 2 columns */}
             <div className="hidden lg:grid grid-cols-2 gap-6 flex-1 min-h-0 analysis-grid">
