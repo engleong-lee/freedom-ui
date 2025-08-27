@@ -54,8 +54,8 @@ The golden cross pattern formed last month continues to provide strong support.`
           target: 198.50
         }
       },
-      chart_3month: 'https://via.placeholder.com/800x400/4F46E5/FFFFFF?text=AAPL+3+Month+Chart',
-      chart_1year: 'https://via.placeholder.com/800x400/10B981/FFFFFF?text=AAPL+1+Year+Chart',
+      chart_3month: 'https://r2.chart-img.com/20250910/tradingview/advanced-chart/3c544e15-3663-4590-ac3d-38b646409098.png',
+      chart_1year: 'https://r2.chart-img.com/20250910/tradingview/advanced-chart/3c544e15-3663-4590-ac3d-38b646409098.png',
       remarks: 'Strong technical setup with confirmed breakout'
     },
     {
@@ -114,8 +114,9 @@ The volume point of control (VPOC) sits at $142.50, which aligns with our curren
         resistance: 145.00,
         primary_action: 'HOLD',
         new_trade: null
-      },      chart_3month: 'https://via.placeholder.com/800x400/EF4444/FFFFFF?text=GOOGL+3+Month+Chart',
-      chart_1year: 'https://via.placeholder.com/800x400/F59E0B/FFFFFF?text=GOOGL+1+Year+Chart',
+      },      
+      chart_3month: 'https://r2.chart-img.com/20250910/tradingview/advanced-chart/3c544e15-3663-4590-ac3d-38b646409098.png',
+      chart_1year: 'https://r2.chart-img.com/20250910/tradingview/advanced-chart/3c544e15-3663-4590-ac3d-38b646409098.png',
       remarks: 'Waiting for breakout confirmation'
     },
     {
@@ -152,8 +153,8 @@ Consider short position or protective puts if price breaks below $415 with volum
           target: 408.00
         }
       },
-      chart_3month: 'https://via.placeholder.com/800x400/8B5CF6/FFFFFF?text=MSFT+3+Month+Chart',
-      chart_1year: 'https://via.placeholder.com/800x400/EC4899/FFFFFF?text=MSFT+1+Year+Chart',
+      chart_3month: 'https://r2.chart-img.com/20250910/tradingview/advanced-chart/3c544e15-3663-4590-ac3d-38b646409098.png',
+      chart_1year: 'https://r2.chart-img.com/20250910/tradingview/advanced-chart/3c544e15-3663-4590-ac3d-38b646409098.png',
       remarks: 'Potential short-term reversal setup'
     },
     {
@@ -190,8 +191,8 @@ Use wider stops due to volatility. Consider scaling into positions.`,
           target: 258.00
         }
       },
-      chart_3month: 'https://via.placeholder.com/800x400/06B6D4/FFFFFF?text=TSLA+3+Month+Chart',
-      chart_1year: 'https://via.placeholder.com/800x400/14B8A6/FFFFFF?text=TSLA+1+Year+Chart',
+      chart_3month: 'https://r2.chart-img.com/20250910/tradingview/advanced-chart/3c544e15-3663-4590-ac3d-38b646409098.png',
+      chart_1year: 'https://r2.chart-img.com/20250910/tradingview/advanced-chart/3c544e15-3663-4590-ac3d-38b646409098.png',
       remarks: 'High volatility play - size positions accordingly'
     },
     {
@@ -228,8 +229,8 @@ Current setup offers 2:1 risk/reward ratio for continuation play.`,
           target: 535.00
         }
       },
-      chart_3month: null,
-      chart_1year: 'https://via.placeholder.com/800x400/7C3AED/FFFFFF?text=META+1+Year+Chart',
+      chart_3month: 'https://r2.chart-img.com/20250910/tradingview/advanced-chart/3c544e15-3663-4590-ac3d-38b646409098.png',
+      chart_1year: 'https://r2.chart-img.com/20250910/tradingview/advanced-chart/3c544e15-3663-4590-ac3d-38b646409098.png',
       remarks: 'Strong trend continuation candidate'
     }
   ];
@@ -365,10 +366,10 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
         {currentAnalysis && (
           <div className="flex flex-col h-full overflow-hidden">
             {/* Analysis Details - passes className for mobile styling */}
-            <AnalysisDetails analysis={currentAnalysis} className="mb-3 sm:mb-4" />
+            <AnalysisDetails analysis={currentAnalysis} className="mb-3 sm:mb-4 flex-shrink-0" />
             
-            {/* Responsive grid: Single column on mobile/tablet, 2 columns on lg+ */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 flex-1 min-h-0 analysis-grid">
+            {/* Desktop layout: 2 columns */}
+            <div className="hidden lg:grid grid-cols-2 gap-6 flex-1 min-h-0 analysis-grid">
               {/* Left column - Analysis content */}
               <div className="flex flex-col min-h-0">
                 <AnalysisContent 
@@ -377,11 +378,11 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
                   className="flex-1"
                 />
               </div>
-              
-              {/* Right column - Chart (hidden on mobile, shown on lg+) */}
-              <div className="hidden lg:flex flex-col min-h-0">
+              {/* Right column - Chart (desktop only) */}
+              <div className="flex flex-col min-h-0">
                 <div className="bg-white rounded-lg shadow-sm flex flex-col h-full overflow-hidden">
-                  <div className="border-b border-gray-200 flex-shrink-0 overflow-x-auto chart-tabs">                    <nav className="flex -mb-px min-w-max">
+                  <div className="border-b border-gray-200 flex-shrink-0 overflow-x-auto chart-tabs">
+                    <nav className="flex -mb-px min-w-max">
                       <button 
                         className={`py-3 px-4 sm:py-4 sm:px-6 border-b-2 font-medium text-sm whitespace-nowrap flex-shrink-0 ${
                           activeChartTab === '3month' 
@@ -410,7 +411,8 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
                       {activeChartTab === '3month' && (
                         <div>
                           {currentAnalysis.chart_3month ? (
-                            <>                              <img 
+                            <>
+                              <img 
                                 src={getImageUrl(currentAnalysis.chart_3month)}
                                 alt="3 Month Chart"
                                 className="w-full h-auto rounded-lg chart-image"
@@ -439,7 +441,8 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
                       {activeChartTab === '1year' && (
                         <div>
                           {currentAnalysis.chart_1year ? (
-                            <>                              <img 
+                            <>
+                              <img 
                                 src={getImageUrl(currentAnalysis.chart_1year)}
                                 alt="1 Year Chart"
                                 className="w-full h-auto rounded-lg chart-image"
@@ -468,12 +471,22 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
                   </div>
                 </div>
               </div>
-            </div>            
-            {/* Chart for mobile and tablets - shown below content on mobile/tablet only */}
-            <div className="lg:hidden mt-4">
-              <div className="bg-white rounded-lg shadow-sm p-3 sm:p-4 chart-container">
+            </div>
+            
+            {/* Mobile/Tablet layout: Tabs and content in single scrollable column */}
+            <div className="lg:hidden flex-1 min-h-0 overflow-y-auto">
+              <div className="pb-4">
+                <AnalysisContent 
+                  analysis={currentAnalysis} 
+                  onRemarksUpdate={handleRemarksUpdate}
+                  className="min-h-[300px]"
+                />
+              </div>
+              
+              {/* Chart section - within the same scroll container */}
+              <div className="bg-white rounded-lg shadow-sm p-3 sm:p-4 mb-4">
                 <div className="border-b border-gray-200 mb-3 sm:mb-4">
-                  <nav className="flex -mb-px chart-tabs">
+                  <nav className="flex -mb-px">
                     <button 
                       className={`py-2 px-3 sm:py-3 sm:px-4 border-b-2 font-medium text-sm transition-colors ${
                         activeChartTab === '3month' 
@@ -497,18 +510,19 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
                   </nav>
                 </div>
                 
-                <div className="overflow-hidden">
-                  {activeChartTab === '3month' && currentAnalysis.chart_3month && (                    <img 
+                <div className="h-[300px] overflow-hidden">
+                  {activeChartTab === '3month' && currentAnalysis.chart_3month && (
+                    <img 
                       src={getImageUrl(currentAnalysis.chart_3month)}
                       alt="3 Month Chart"
-                      className="w-full h-auto rounded-lg chart-image"
+                      className="w-full h-full object-contain rounded-lg"
                     />
                   )}
                   {activeChartTab === '1year' && currentAnalysis.chart_1year && (
                     <img 
                       src={getImageUrl(currentAnalysis.chart_1year)}
                       alt="1 Year Chart"
-                      className="w-full h-auto rounded-lg chart-image"
+                      className="w-full h-full object-contain rounded-lg"
                     />
                   )}
                   {!currentAnalysis.chart_3month && !currentAnalysis.chart_1year && (

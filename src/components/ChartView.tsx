@@ -15,17 +15,23 @@ export function ChartView({
   return <div className="bg-white rounded-lg shadow-sm overflow-hidden">
       <div className="border-b border-gray-200">
         <nav className="flex -mb-px">
-          <button className={`py-4 px-6 border-b-2 font-medium text-sm ${timeframe === '3m' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`} onClick={() => setTimeframe('3m')}>
-            3 Month Chart
+          <button className={`py-2 px-3 sm:py-4 sm:px-6 border-b-2 font-medium text-sm ${timeframe === '3m' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`} onClick={() => setTimeframe('3m')}>
+            <span className="hidden sm:inline">3 Month Chart</span>
+            <span className="sm:hidden">3 Month</span>
           </button>
-          <button className={`py-4 px-6 border-b-2 font-medium text-sm ${timeframe === '1y' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`} onClick={() => setTimeframe('1y')}>
-            1 Year Chart
+          <button className={`py-2 px-3 sm:py-4 sm:px-6 border-b-2 font-medium text-sm ${timeframe === '1y' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`} onClick={() => setTimeframe('1y')}>
+            <span className="hidden sm:inline">1 Year Chart</span>
+            <span className="sm:hidden">1 Year</span>
           </button>
         </nav>
       </div>
-      <div className="p-4">
-        <div className="aspect-w-16 aspect-h-9">
-          <img src={chartImages[timeframe]} alt={`${symbol} ${timeframe} chart`} className="w-full h-[500px] object-cover rounded" />
+      <div className="p-2 sm:p-4">
+        <div className="relative w-full">
+          <img 
+            src={chartImages[timeframe]} 
+            alt={`${symbol} ${timeframe} chart`} 
+            className="w-full h-auto max-h-[300px] sm:max-h-[400px] lg:max-h-[500px] object-contain rounded" 
+          />
         </div>
       </div>
     </div>;
