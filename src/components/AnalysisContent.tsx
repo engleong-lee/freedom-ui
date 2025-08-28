@@ -213,7 +213,7 @@ export function AnalysisContent({ analysis, onRemarksUpdate, className }: Analys
         </nav>
       </div>
       
-      <div className="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto custom-scrollbar analysis-markdown-content analysis-content-area">
+      <div className="p-4 sm:p-6 flex-1 min-h-0 lg:overflow-y-auto custom-scrollbar analysis-markdown-content analysis-content-area">
         {activeTab === 'analysis' && (
           <div className="max-w-none">
             <ReactMarkdown components={markdownComponents} remarkPlugins={[remarkGfm]}>

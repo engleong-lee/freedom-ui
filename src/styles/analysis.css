@@ -63,6 +63,13 @@
     flex-direction: column !important;
     gap: 0.75rem !important;
   }
+
+  /* Ensure clean scrolling behavior in mobile */
+  .analysis-content-area {
+    overflow-y: visible !important;
+    max-height: none !important;
+    height: auto !important;
+  }
   
   /* Make tabs scrollable and touch-friendly on mobile */
   .analysis-tabs {
@@ -83,11 +90,12 @@
     flex-shrink: 0;
   }
   
-  /* Improve content area height on mobile */
+  /* Improve content area height on mobile - remove conflicting scroll settings */
   .analysis-content-area {
     min-height: 300px !important;
-    max-height: calc(50vh) !important;
-    overflow-y: auto !important;
+    overflow-y: visible !important;
+    max-height: none !important;
+    height: auto !important;
   }
   
   /* Better spacing for markdown content */
@@ -143,11 +151,11 @@
     flex: 1;
   }
   
-  /* Ensure proper scrolling on mobile */
+  /* Ensure proper scrolling on mobile - let outer container handle all scrolling */
   .analysis-grid {
-    overflow-y: auto !important;
+    overflow-y: visible !important;
     -webkit-overflow-scrolling: touch !important;
-    max-height: calc(100vh - 250px) !important;
+    max-height: none !important;
   }
 }
 
