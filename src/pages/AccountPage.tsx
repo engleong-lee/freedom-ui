@@ -88,11 +88,11 @@ export function AccountPage() {
     );
   }
   return (
-    <div className="bg-white rounded-lg shadow p-4 md:p-6 w-full">
-      <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 ml-10 sm:ml-0">Account</h2>
+    <div className="bg-white rounded-lg shadow p-0 sm:p-4 md:p-6 w-full">
+      <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 ml-10 sm:ml-0 px-4 sm:px-0">Account</h2>
       
       {/* Summary Card */}
-      <div className="bg-blue-50 p-4 md:p-6 rounded-lg border border-blue-100 mb-6 md:mb-8">
+      <div className="bg-blue-50 p-4 md:p-6 rounded-lg border border-blue-100 mb-6 md:mb-8 mx-4 sm:mx-0">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h3 className="text-base md:text-lg font-semibold text-gray-700">
@@ -116,7 +116,7 @@ export function AccountPage() {
         </div>
       </div>
       {/* Account Details Grid - Responsive */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 px-4 sm:px-0">
         
         {/* Account Information */}
         <div className="bg-gray-50 p-4 md:p-5 rounded-lg border border-gray-200">

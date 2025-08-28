@@ -222,15 +222,15 @@ export function PositionsPage() {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-4 md:p-6 w-full">
-      <div className="flex items-center justify-between mb-4 md:mb-6">
+    <div className="bg-white rounded-lg shadow p-0 sm:p-4 md:p-6 w-full">
+      <div className="flex items-center justify-between mb-4 md:mb-6 px-4 sm:px-0">
         <h2 className="text-xl md:text-2xl font-bold ml-10 sm:ml-0">Positions</h2>
         <span className="text-xs md:text-sm text-gray-500">
           {positions.length} position{positions.length !== 1 ? 's' : ''}
         </span>
       </div>      
       {/* Mobile Card View - Only visible on small screens */}
-      <div className="block md:hidden">
+      <div className="block md:hidden px-4 sm:px-0">
         {sortedPositions.map((position) => (
           <PositionCard key={position['Asset Id']} position={position} />
         ))}
