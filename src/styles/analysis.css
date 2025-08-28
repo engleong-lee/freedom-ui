@@ -1,3 +1,23 @@
+/* Fix double scrollbar in mobile by forcing no scroll on analysis content */
+@media (max-width: 1023px) {
+  .lg\:hidden .analysis-content-area,
+  .analysis-content-area {
+    overflow-y: visible !important;
+    max-height: none !important;
+    height: auto !important;
+  }
+  
+  /* Also ensure the custom scrollbar class doesn't interfere */
+  .custom-scrollbar {
+    overflow-y: visible !important;
+  }
+  
+  /* Force no scroll on any nested containers in mobile */
+  .lg\:hidden .overflow-y-auto {
+    overflow-y: visible !important;
+  }
+}
+
 /* Enhanced mobile-responsive analysis page styles */
 
 /* Full height layout with scrollbar support */
