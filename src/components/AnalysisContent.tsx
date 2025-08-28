@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Analysis } from '../types/analysis';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import type { Components } from 'react-markdown';
 import { updateRemarks } from '../utils/api';
 import '../styles/analysis.css';
@@ -90,12 +91,14 @@ const markdownComponents: Components = {
     <hr className="my-8 border-t border-gray-300" />
   ),
   table: ({children}) => (
-    <table className="w-full mb-4 border-collapse">
-      {children}
-    </table>
+    <div className="overflow-x-auto mb-4">
+      <table className="min-w-full border-collapse border border-gray-300">
+        {children}
+      </table>
+    </div>
   ),
   thead: ({children}) => (
-    <thead className="border-b-2 border-gray-300">
+    <thead className="bg-gray-50">
       {children}
     </thead>
   ),
@@ -110,12 +113,12 @@ const markdownComponents: Components = {
     </tr>
   ),
   th: ({children}) => (
-    <th className="text-left font-semibold text-gray-900 p-2">
+    <th className="text-left font-semibold text-gray-900 p-3 border border-gray-300 bg-gray-100">
       {children}
     </th>
   ),
   td: ({children}) => (
-    <td className="p-2">
+    <td className="p-3 border border-gray-300 text-gray-700">
       {children}
     </td>
   ),
@@ -213,7 +216,7 @@ export function AnalysisContent({ analysis, onRemarksUpdate, className }: Analys
       <div className="p-4 sm:p-6 flex-1 min-h-0 overflow-y-auto custom-scrollbar analysis-markdown-content analysis-content-area">
         {activeTab === 'analysis' && (
           <div className="max-w-none">
-            <ReactMarkdown components={markdownComponents}>
+            <ReactMarkdown components={markdownComponents} remarkPlugins={[remarkGfm]}>
               {analysis.analysis_content}
             </ReactMarkdown>
           </div>
@@ -221,7 +224,7 @@ export function AnalysisContent({ analysis, onRemarksUpdate, className }: Analys
         
         {activeTab === 'prompt' && (
           <div className="max-w-none">
-            <ReactMarkdown components={markdownComponents}>
+            <ReactMarkdown components={markdownComponents} remarkPlugins={[remarkGfm]}>
               {analysis.analysis_prompt}
             </ReactMarkdown>
           </div>

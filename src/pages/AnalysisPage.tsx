@@ -75,38 +75,20 @@ Google has been consolidating in a tight range between $140-$145 for the past tw
 - Volume declining during consolidation (typical for flag patterns)
 - ADX at 18 suggests trend strength building
 
+**Sector Performance Comparison:**
+
+| Sector | Ticker | Market Condition | Comments |
+|------------------|--------|--------------------------------|-------------------------------------|
+| Consumer Staples | XLP | Benefiting from defensive flows | Strong consumer staples earnings |
+| Energy | XLE | Supported by rising commodity prices | Oil prices steady amid supply risk |
+| Healthcare | XLV | Improving earnings outlook | Innovation in pharma driving growth |
+
 **Price Targets:**
 - Initial target: $148
 - Secondary target: $152
 
 **Risk Management:**
-Stop loss recommended below $139 to maintain favorable risk/reward ratio.
-
-**Additional Technical Analysis:**
-
-The stock has been forming a clear uptrend channel since the beginning of the month. The 50-day moving average is currently at $141.50 and acting as strong support. The 200-day moving average sits at $135, providing a solid floor for any potential pullbacks.
-
-**Fibonacci Retracement Levels:**
-- 23.6%: $143.20
-- 38.2%: $141.80
-- 50.0%: $140.50
-- 61.8%: $139.20
-
-**Market Sentiment Analysis:**
-
-Recent analyst upgrades from major investment banks have been positive, with average price targets ranging from $150 to $155. Institutional buying has increased over the past week, with notable accumulation phases during market dips.
-
-**Options Flow Analysis:**
-
-Unusual options activity detected with significant call buying at the $150 strike for next month's expiration. Put/Call ratio is currently at 0.45, indicating bullish sentiment among options traders.
-
-**Relative Strength Analysis:**
-
-GOOGL is showing relative strength compared to the broader tech sector (XLK). The stock has outperformed the NASDAQ by 3.2% over the past month and continues to show leadership characteristics.
-
-**Volume Profile Analysis:**
-
-The volume point of control (VPOC) sits at $142.50, which aligns with our current consolidation zone. Above-average volume nodes are visible at $145 and $148, suggesting these as key resistance levels to watch.`,
+Stop loss recommended below $139 to maintain favorable risk/reward ratio.`,
       analysis_prompt: 'Evaluate GOOGL consolidation pattern and momentum indicators',
       decision: {
         symbol: 'GOOGL',
