@@ -88,8 +88,8 @@ export function AccountPage() {
     );
   }
   return (
-    <div className="bg-white rounded-lg shadow p-4 md:p-6">
-      <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Account</h2>
+    <div className="bg-white rounded-lg shadow p-4 md:p-6 w-full">
+      <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 ml-10 sm:ml-0">Account</h2>
       
       {/* Summary Card */}
       <div className="bg-blue-50 p-4 md:p-6 rounded-lg border border-blue-100 mb-6 md:mb-8">

@@ -309,7 +309,7 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
       <div className="px-3 sm:px-4 lg:px-6 py-2 sm:py-4 bg-white shadow-sm border-b analysis-main-content flex-shrink-0">
         {/* Title and toggle button for mobile */}
         <div className="flex items-center justify-between mb-2 sm:mb-4">
-          <h2 className="text-lg sm:text-2xl font-bold">Analysis & Decision</h2>
+          <h2 className="text-lg sm:text-2xl font-bold ml-10 sm:ml-0">Analysis & Decision</h2>
           <button 
             onClick={() => setFiltersCollapsed(!filtersCollapsed)}
             className="sm:hidden p-1.5 hover:bg-gray-100 rounded-md transition-colors flex items-center gap-1 text-sm text-gray-600"
