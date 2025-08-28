@@ -84,11 +84,18 @@
     gap: 0.75rem !important;
   }
 
-  /* Ensure clean scrolling behavior in mobile */
+  /* Reduce excessive padding on mobile - this was causing the big gap */
   .analysis-content-area {
+    padding-bottom: 1.5rem !important; /* Reduced from 4rem */
     overflow-y: visible !important;
     max-height: none !important;
     height: auto !important;
+  }
+  
+  /* Also reduce custom scrollbar padding on mobile */
+  .custom-scrollbar {
+    padding-bottom: 1rem !important; /* Reduced from 4rem */
+    overflow-y: visible !important;
   }
   
   /* Make tabs scrollable and touch-friendly on mobile */
@@ -110,19 +117,18 @@
     flex-shrink: 0;
   }
   
-  /* Improve content area height on mobile - remove conflicting scroll settings */
-  .analysis-content-area {
-    min-height: 300px !important;
-    overflow-y: visible !important;
-    max-height: none !important;
-    height: auto !important;
-  }
-  
-  /* Better spacing for markdown content */
+  /* Better spacing for markdown content on mobile */
   .analysis-markdown-content {
     padding: 1rem !important;
+    padding-bottom: 2rem !important; /* Reduced from 4rem */
     font-size: 0.875rem !important;
     line-height: 1.6 !important;
+  }
+  
+  /* Reduce excessive margins for last elements on mobile */
+  .analysis-markdown-content p:last-child,
+  .analysis-markdown-content > div:last-child p:last-child {
+    margin-bottom: 1rem !important; /* Reduced from 3rem */
   }
   
   .analysis-markdown-content h1,
@@ -199,8 +205,29 @@
   overflow-y: auto !important;
   overflow-x: hidden !important;
   height: auto !important;
-  max-height: calc(100vh - 280px) !important;
+  /* Use a more generous calculation that accounts for zoom levels */
+  max-height: calc(100vh - 160px) !important; 
   min-height: 400px !important;
+  /* Add moderate bottom padding - will be overridden for mobile */
+  padding-bottom: 4rem !important;
+}
+
+/* For very tall screens, ensure minimum content space */
+@media (min-height: 900px) {
+  .analysis-content-area {
+    max-height: calc(100vh - 150px) !important;
+    min-height: 500px !important;
+    padding-bottom: 5rem !important;
+  }
+}
+
+/* For shorter screens, optimize space usage but maintain safety margin */
+@media (max-height: 800px) {
+  .analysis-content-area {
+    max-height: calc(100vh - 140px) !important;
+    min-height: 350px !important;
+    padding-bottom: 3rem !important;
+  }
 }
 
 /* Fix for parent container to allow scrolling */
@@ -214,6 +241,15 @@
   overflow-y: auto !important;
   scrollbar-gutter: stable;
   -webkit-overflow-scrolling: touch;
+  padding-bottom: 4rem !important; /* Desktop - increased for better safety margin */
+}
+
+/* Mobile override for custom scrollbar */
+@media (max-width: 1023px) {
+  .custom-scrollbar {
+    padding-bottom: 1rem !important; /* Mobile - reduced to prevent big gaps */
+    overflow-y: visible !important;
+  }
 }
 
 /* Firefox scrollbar styling */
@@ -255,6 +291,15 @@
   
   .analysis-content-area {
     min-height: 600px !important;
+    /* Ensure generous bottom padding on desktop for all zoom levels */
+    padding-bottom: 5rem !important;
+  }
+  
+  /* Add extra bottom padding on desktop for better readability */
+  .analysis-markdown-content {
+    padding-bottom: 4rem !important;
+    /* Add bottom margin to the last element for extra safety */
+    margin-bottom: 2rem !important;
   }
 }
 
@@ -322,5 +367,49 @@
     width: 100%;
     margin-left: 0;
     margin-right: 0;
+  }
+}
+
+/* Universal bottom spacing for all analysis content to prevent cutoffs */
+.analysis-content-area .max-w-none {
+  padding-bottom: 4rem !important;
+  margin-bottom: 2rem !important;
+}
+
+/* Mobile override - reduce excessive spacing */
+@media (max-width: 1023px) {
+  .analysis-content-area .max-w-none {
+    padding-bottom: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* Ensure the "Bottom Line" and other final content always has sufficient space */
+.analysis-content-area p:last-of-type,
+.analysis-markdown-content p:last-of-type {
+  margin-bottom: 3rem !important;
+  padding-bottom: 1rem !important;
+}
+
+/* Mobile override for final content spacing */
+@media (max-width: 1023px) {
+  .analysis-content-area p:last-of-type,
+  .analysis-markdown-content p:last-of-type {
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+}
+
+/* Additional safety margin for content within ReactMarkdown */
+.analysis-markdown-content > div:last-child {
+  margin-bottom: 4rem !important;
+  padding-bottom: 2rem !important;
+}
+
+/* Mobile override for ReactMarkdown content */
+@media (max-width: 1023px) {
+  .analysis-markdown-content > div:last-child {
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.5rem !important;
   }
 }
