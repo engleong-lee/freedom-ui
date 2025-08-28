@@ -15,11 +15,11 @@ export default defineConfig({
     port: 5173, // Optional: explicitly set the port
     proxy: {
       '/accountinfo': {
-        target: 'http://localhost:8000',
+        target: 'http://100.117.35.53:8000',
         changeOrigin: true,
       },
       '/allpositions': {
-        target: 'http://localhost:8000',
+        target: 'http://100.117.35.53:8000',
         changeOrigin: true,
       }
     }
