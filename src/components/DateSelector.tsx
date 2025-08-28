@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { CalendarIcon } from 'lucide-react';
@@ -10,12 +10,24 @@ interface DateSelectorProps {
 
 export function DateSelector({ onDateSelect, inline = false }: DateSelectorProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [isOpen, setIsOpen] = useState(false);
+  const datePickerRef = useRef<DatePicker>(null);
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
       setSelectedDate(date);
       onDateSelect(date);
+      // Force close the date picker after selection
+      setIsOpen(false);
+      // Also use the ref method as a backup
+      if (datePickerRef.current) {
+        datePickerRef.current.setOpen(false);
+      }
     }
+  };
+
+  const handleInputClick = () => {
+    setIsOpen(!isOpen);
   };
 
   if (inline) {
@@ -26,11 +38,17 @@ export function DateSelector({ onDateSelect, inline = false }: DateSelectorProps
         </label>
         <div className="relative w-full">
           <DatePicker 
-            selected={selectedDate} 
-            onChange={handleDateChange} 
-            dateFormat="yyyy-MM-dd" 
-            className="w-full pl-8 pr-2 py-1.5 sm:py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm" 
+            ref={datePickerRef}
+            selected={selectedDate}
+            onChange={handleDateChange}
+            open={isOpen}
+            onInputClick={handleInputClick}
+            onClickOutside={() => setIsOpen(false)}
+            dateFormat="yyyy-MM-dd"
+            className="w-full pl-8 pr-2 py-1.5 sm:py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-xs sm:text-sm"
             placeholderText="Date"
+            shouldCloseOnSelect={true}
+            autoFocus={false}
           />
           <CalendarIcon className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" size={14} />
         </div>
@@ -44,11 +62,17 @@ export function DateSelector({ onDateSelect, inline = false }: DateSelectorProps
         Select Date
       </label>
       <div className="flex items-center relative">
-        <DatePicker 
-          selected={selectedDate} 
-          onChange={handleDateChange} 
-          dateFormat="yyyy-MM-dd" 
-          className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
+        <DatePicker
+          ref={datePickerRef}
+          selected={selectedDate}
+          onChange={handleDateChange}
+          open={isOpen}
+          onInputClick={handleInputClick}
+          onClickOutside={() => setIsOpen(false)}
+          dateFormat="yyyy-MM-dd"
+          className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          shouldCloseOnSelect={true}
+          autoFocus={false}
         />
         <CalendarIcon className="absolute left-3 text-gray-400" size={16} />
       </div>
