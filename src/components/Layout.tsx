@@ -106,7 +106,7 @@ export function Layout({ children }: LayoutProps) {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-        <main className={`p-6 flex-1 flex flex-col min-h-0 overflow-hidden ${!isSidebarOpen ? 'md:ml-0' : ''} transition-all duration-300`}>
+        <main className={`p-0 md:p-6 flex-1 flex flex-col min-h-0 overflow-hidden ${!isSidebarOpen ? 'md:ml-0' : ''} transition-all duration-300`}>
           {children}
         </main>
       </div>
