@@ -409,16 +409,16 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
                     </nav>
                   </div>
                   
-                  <div className="p-4 flex-1 min-h-0 overflow-y-auto custom-scrollbar">
-                    <div className="space-y-4">
+                  <div className="p-4 flex-1 min-h-0 flex flex-col">
+                    <div className="flex-1 min-h-0 relative">
                       {activeChartTab === '3month' && (
-                        <div>
+                        <div className="h-full chart-image-container">
                           {currentAnalysis.chart_3month ? (
                             <>
                               <img 
                                 src={getImageUrl(currentAnalysis.chart_3month)}
                                 alt="3 Month Chart"
-                                className="w-full h-auto rounded-lg chart-image"
+                                className="w-full h-full rounded-lg chart-image"
                                 onError={(e) => {
                                   const target = e.currentTarget;
                                   target.style.display = 'none';
@@ -442,13 +442,13 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
                       )}
                       
                       {activeChartTab === '1year' && (
-                        <div>
+                        <div className="h-full chart-image-container">
                           {currentAnalysis.chart_1year ? (
                             <>
                               <img 
                                 src={getImageUrl(currentAnalysis.chart_1year)}
                                 alt="1 Year Chart"
-                                className="w-full h-auto rounded-lg chart-image"
+                                className="w-full h-full rounded-lg chart-image"
                                 onError={(e) => {
                                   const target = e.currentTarget;
                                   target.style.display = 'none';
