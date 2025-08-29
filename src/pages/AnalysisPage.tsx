@@ -292,56 +292,56 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col">
-      {/* Mock Data Mode Indicator */}
-      {mockDataMode && (
-        <div className="mb-3 sm:mb-4 bg-amber-50 border border-amber-200 rounded-lg p-2 sm:p-3 flex items-center gap-2 flex-shrink-0">
-          <svg className="h-5 w-5 text-amber-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span className="text-xs sm:text-sm text-amber-800 font-medium">
-            Mock Data Mode Active - Displaying sample data for demonstration purposes
-          </span>
-        </div>
-      )}
-      
-      {/* Header with mobile-optimized collapsible controls */}
-      <div className="px-3 sm:px-4 lg:px-6 py-2 sm:py-4 bg-white shadow-sm border-b analysis-main-content flex-shrink-0">
-        {/* Title and toggle button for mobile */}
-        <div className="flex items-center justify-between mb-2 sm:mb-4">
-          <h2 className="text-lg sm:text-2xl font-bold ml-10 sm:ml-0">Analysis & Decision</h2>
-          <button 
-            onClick={() => setFiltersCollapsed(!filtersCollapsed)}
-            className="sm:hidden p-1.5 hover:bg-gray-100 rounded-md transition-colors flex items-center gap-1 text-sm text-gray-600"
-            aria-label={filtersCollapsed ? "Show filters" : "Hide filters"}
-          >
-            <Filter size={16} />
-            {filtersCollapsed ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
-          </button>
-        </div>
-        
-        {/* Collapsible selectors section */}
-        <div className={`${filtersCollapsed ? 'hidden' : 'flex'} sm:flex flex-row gap-2 sm:gap-4 analysis-selectors w-full transition-all duration-200`}>
-          <div className="flex-1 min-w-0">
-            <DateSelector onDateSelect={handleDateSelect} inline />
+    <div className="h-screen flex flex-col lg:h-screen lg:flex lg:flex-col">
+      {/* Mobile: Allow natural scrolling. Desktop: Maintain flex structure */}
+      <div className="lg:contents">
+        {/* Mock Data Mode Indicator */}
+        {mockDataMode && (
+          <div className="mb-3 sm:mb-4 bg-amber-50 border border-amber-200 rounded-lg p-2 sm:p-3 flex items-center gap-2 mx-3 sm:mx-4 lg:mx-6 mt-3 sm:mt-4 lg:mt-0">
+            <svg className="h-5 w-5 text-amber-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span className="text-xs sm:text-sm text-amber-800 font-medium">
+              Mock Data Mode Active - Displaying sample data for demonstration purposes
+            </span>
           </div>
-          <div className="flex-1 min-w-0">
-            <SymbolDropdown 
-              analyses={analyses} 
-              selectedSymbol={selectedSymbol} 
-              onSymbolSelect={handleSymbolSelect}
-              inline 
-            />
+        )}
+        
+        {/* Header with mobile-optimized collapsible controls */}
+        <div className="px-3 sm:px-4 lg:px-6 py-2 sm:py-4 bg-white shadow-sm border-b analysis-main-content lg:flex-shrink-0">
+          {/* Title and toggle button for mobile */}
+          <div className="flex items-center justify-between mb-2 sm:mb-4">
+            <h2 className="text-lg sm:text-2xl font-bold ml-10 sm:ml-0">Analysis & Decision</h2>
+            <button 
+              onClick={() => setFiltersCollapsed(!filtersCollapsed)}
+              className="sm:hidden p-1.5 hover:bg-gray-100 rounded-md transition-colors flex items-center gap-1 text-sm text-gray-600"
+              aria-label={filtersCollapsed ? "Show filters" : "Hide filters"}
+            >
+              <Filter size={16} />
+              {filtersCollapsed ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
+            </button>
+          </div>
+          
+          {/* Collapsible selectors section */}
+          <div className={`${filtersCollapsed ? 'hidden' : 'flex'} sm:flex flex-row gap-2 sm:gap-4 analysis-selectors w-full transition-all duration-200`}>
+            <div className="flex-1 min-w-0">
+              <DateSelector onDateSelect={handleDateSelect} inline />
+            </div>
+            <div className="flex-1 min-w-0">
+              <SymbolDropdown 
+                analyses={analyses} 
+                selectedSymbol={selectedSymbol} 
+                onSymbolSelect={handleSymbolSelect}
+                inline 
+              />
+            </div>
           </div>
         </div>
-        
 
-      </div>
-
-      {/* Main content area with responsive grid */}
-      <div className="flex-1 min-h-0 overflow-hidden p-3 sm:p-4 lg:p-6">
+        {/* Main content area - Mobile: Natural flow, Desktop: Flex container */}
+        <div className="p-3 sm:p-4 lg:p-6 lg:flex-1 lg:min-h-0 lg:overflow-hidden">
         {loading && (
-          <div className="flex items-center justify-center p-8 h-full">
+          <div className="flex items-center justify-center p-8 lg:h-full">
             <div className="flex flex-col items-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
               <p className="mt-4 text-gray-600">Loading analyses...</p>
@@ -367,9 +367,9 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
         )}
 
         {currentAnalysis && (
-          <div className="flex flex-col h-full overflow-hidden">
+          <div className="lg:flex lg:flex-col lg:h-full lg:overflow-hidden">
             {/* Analysis Details - hidden on mobile, visible on sm and up */}
-            <AnalysisDetails analysis={currentAnalysis} className="hidden sm:block mb-3 sm:mb-4 flex-shrink-0" />
+            <AnalysisDetails analysis={currentAnalysis} className="hidden sm:block mb-3 sm:mb-4 lg:flex-shrink-0" />
             
             {/* Desktop layout: 2 columns */}
             <div className="hidden lg:grid grid-cols-2 gap-6 flex-1 min-h-0 analysis-grid">
@@ -476,8 +476,8 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
               </div>
             </div>
             
-            {/* Mobile/Tablet layout: Tabs and content in single scrollable column */}
-            <div className="lg:hidden flex-1 min-h-0 overflow-y-auto">
+            {/* Mobile/Tablet layout: Natural flow with no separate scroll containers */}
+            <div className="lg:hidden">
               <div className="pb-4">
                 <AnalysisContent 
                   analysis={currentAnalysis} 
@@ -486,7 +486,7 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
                 />
               </div>
               
-              {/* Chart section - within the same scroll container */}
+              {/* Chart section - flows naturally in the page */}
               <div className="bg-white rounded-lg shadow-sm p-3 sm:p-4 mb-4">
                 <div className="border-b border-gray-200 mb-3 sm:mb-4">
                   <nav className="flex -mb-px">
@@ -577,6 +577,7 @@ export function AnalysisPage({ mockDataMode = false }: AnalysisPageProps) {
             </p>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
