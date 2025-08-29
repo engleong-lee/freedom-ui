@@ -90,9 +90,14 @@
   }
   
   .react-datepicker__input-container input {
-    font-size: 12px !important;
+    /* Use 16px to prevent iOS zoom, but scale down visually */
+    font-size: 16px !important;
     padding: 6px 8px 6px 28px !important;
     min-width: 0;
+    /* Visual scaling to maintain compact appearance */
+    transform: scale(0.875);
+    transform-origin: left center;
+    width: 114.3%; /* Compensate for scale */
   }
   
   /* Compact the date picker popup on mobile */

@@ -171,6 +171,15 @@
     font-size: 16px; /* Prevents zoom on iOS */
   }
   
+  /* Specific fix for react-datepicker to prevent iOS zoom while maintaining visual size */
+  .react-datepicker__input-container input,
+  input[type="text"].react-datepicker-ignore-onclickoutside {
+    font-size: 16px !important; /* Prevent iOS zoom */
+    transform: scale(0.875); /* Visually scale down to appear as 14px */
+    transform-origin: left center;
+    width: 114.3%; /* Compensate for scale (100% / 0.875) */
+  }
+  
   /* Mobile-specific detail items */
   .detail-item-mobile {
     min-width: 0;
@@ -197,6 +206,12 @@
   
   .analysis-tabs button {
     padding: 0.875rem 1.5rem !important;
+  }
+  
+  /* Prevent iOS zoom on tablets too */
+  .react-datepicker__input-container input,
+  input[type="text"].react-datepicker-ignore-onclickoutside {
+    font-size: 16px !important; /* Prevent iOS zoom */
   }
 }
 
