@@ -21,6 +21,10 @@ export default defineConfig({
       '/allpositions': {
         target: 'http://100.117.35.53:8000',
         changeOrigin: true,
+      },
+      '/active-trades': {
+        target: 'http://100.117.35.53:8000',
+        changeOrigin: true,
       }
     }
   }
