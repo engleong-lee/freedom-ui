@@ -65,7 +65,7 @@ export function Layout({ children }: LayoutProps) {
           {/* Navigation */}
           <nav className="mt-6">
             <NavItem to="/account" icon={UserCircle} label="Account" />
-            <NavItem to="/positions" icon={BarChart3} label="Positions" />
+            <NavItem to="/positions" icon={BarChart3} label="Trades" />
             <NavItem to="/analysis" icon={LineChart} label="Analysis & Decision" />
           </nav>
         </div>
@@ -99,7 +99,7 @@ export function Layout({ children }: LayoutProps) {
         </div>
         <nav className="mt-6">
           <NavItem to="/account" icon={UserCircle} label="Account" />
-          <NavItem to="/positions" icon={BarChart3} label="Positions" />
+          <NavItem to="/positions" icon={BarChart3} label="Trades" />
           <NavItem to="/analysis" icon={LineChart} label="Analysis & Decision" />
         </nav>
       </div>
