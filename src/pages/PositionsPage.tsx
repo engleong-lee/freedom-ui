@@ -763,10 +763,10 @@ export function PositionsPage() {
   if (loading) {
     return (
       <div className="bg-white rounded-lg shadow p-4 md:p-6">
-        <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Active Trades</h2>
+        <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">&nbsp;Trades</h2>
         <div className="flex items-center justify-center py-12">
           <Loader2 className="animate-spin h-8 w-8 text-blue-500" />
-          <span className="ml-2 text-gray-600">Loading active trades...</span>
+          <span className="ml-2 text-gray-600">Loading trades...</span>
         </div>
       </div>
     );
@@ -776,7 +776,7 @@ export function PositionsPage() {
   if (error) {
     return (
       <div className="bg-white rounded-lg shadow p-4 md:p-6">
-        <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">Active Trades</h2>
+        <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">&nbsp;Trades</h2>
         <div className="flex items-center justify-center py-12">
           <AlertCircle className="h-8 w-8 text-red-500" />
           <span className="ml-2 text-red-600">{error}</span>
@@ -797,7 +797,7 @@ export function PositionsPage() {
         <div className="p-4 md:p-6 border-b border-gray-200">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="ml-12 md:ml-0">
-              <h2 className="text-xl md:text-2xl font-bold">Active Trades</h2>
+              <h2 className="text-xl md:text-2xl font-bold">&nbsp;Trades</h2>
               {lastUpdate && (
                 <p className="text-xs text-gray-500 mt-1">
                   Last updated: {lastUpdate.toLocaleTimeString()}
