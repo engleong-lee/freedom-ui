@@ -148,12 +148,16 @@ export function PositionsPage() {
   const [expandedTrades, setExpandedTrades] = useState<Set<string>>(new Set());
   const [selectedTab, setSelectedTab] = useState<'all' | 'positions' | 'pending'>('all');
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
-  // Mock data for demonstration
+
+  // Toggle this to switch between mock data and real API
+  const USE_MOCK_DATA = false;
+
+  // Mock data for demonstration/testing
   const mockData: ApiResponse = {
     summary: {
       total_symbols: 4,
       positions_count: 2,
-      pending_entries: 2, // Fixed: AMD and MA have pending entries
+      pending_entries: 2,
       swing_trades: 1,
       trend_trades: 2,
       total_active_orders: 7
@@ -348,19 +352,22 @@ export function PositionsPage() {
   const fetchActiveTrades = async () => {
     try {
       setError(null);
-      // Use mock data for demonstration
-      setData(mockData);
-      setLastUpdate(new Date());
-      setLoading(false);
       
-      // Uncomment below for real API call
-      // const response = await fetch('/active-trades');
-      // if (!response.ok) {
-      //   throw new Error(`Failed to fetch active trades: ${response.statusText}`);
-      // }
-      // const data: ApiResponse = await response.json();
-      // setData(data);
-      // setLastUpdate(new Date());
+      if (USE_MOCK_DATA) {
+        // Use mock data for testing/demonstration
+        setData(mockData);
+        setLastUpdate(new Date());
+        setLoading(false);
+      } else {
+        // Use real API
+        const response = await fetch('/active-trades');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch active trades: ${response.statusText}`);
+        }
+        const data: ApiResponse = await response.json();
+        setData(data);
+        setLastUpdate(new Date());
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred while fetching active trades');
       console.error('Error fetching active trades:', err);
