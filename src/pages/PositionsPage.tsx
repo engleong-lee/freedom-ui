@@ -153,7 +153,7 @@ export function PositionsPage() {
     summary: {
       total_symbols: 4,
       positions_count: 2,
-      pending_entries: 0,
+      pending_entries: 2, // Fixed: AMD and MA have pending entries
       swing_trades: 1,
       trend_trades: 2,
       total_active_orders: 7
@@ -449,41 +449,41 @@ export function PositionsPage() {
     const { summary } = data;
     
     return (
-      <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 md:p-6 text-white mb-6">
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="text-lg font-semibold">Portfolio Summary</h3>
+      <div className="hidden md:block bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-3 text-white mb-3">
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="text-sm font-semibold">Portfolio Summary</h3>
           <button
             onClick={fetchActiveTrades}
-            className="p-1 hover:bg-white hover:bg-opacity-20 rounded transition-colors"
+            className="p-0.5 hover:bg-white hover:bg-opacity-20 rounded transition-colors"
             title="Refresh data"
           >
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className="w-3 h-3" />
           </button>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          <div>
-            <div className="text-2xl font-bold">{summary.total_symbols}</div>
-            <div className="text-sm opacity-90">Symbols</div>
+        <div className="grid grid-cols-6 gap-3">
+          <div className="text-center">
+            <div className="text-lg font-bold">{summary.total_symbols}</div>
+            <div className="text-xs opacity-90">Symbols</div>
           </div>
-          <div>
-            <div className="text-2xl font-bold">{summary.positions_count}</div>
-            <div className="text-sm opacity-90">Positions</div>
+          <div className="text-center">
+            <div className="text-lg font-bold">{summary.positions_count}</div>
+            <div className="text-xs opacity-90">Positions</div>
           </div>
-          <div>
-            <div className="text-2xl font-bold">{summary.pending_entries}</div>
-            <div className="text-sm opacity-90">Pending</div>
+          <div className="text-center">
+            <div className="text-lg font-bold">{summary.pending_entries}</div>
+            <div className="text-xs opacity-90">Pending</div>
           </div>
-          <div>
-            <div className="text-2xl font-bold">{summary.swing_trades}</div>
-            <div className="text-sm opacity-90">Swing</div>
+          <div className="text-center">
+            <div className="text-lg font-bold">{summary.swing_trades}</div>
+            <div className="text-xs opacity-90">Swing</div>
           </div>
-          <div>
-            <div className="text-2xl font-bold">{summary.trend_trades}</div>
-            <div className="text-sm opacity-90">Trend</div>
+          <div className="text-center">
+            <div className="text-lg font-bold">{summary.trend_trades}</div>
+            <div className="text-xs opacity-90">Trend</div>
           </div>
-          <div>
-            <div className="text-2xl font-bold">{summary.total_active_orders}</div>
-            <div className="text-sm opacity-90">Active Orders</div>
+          <div className="text-center">
+            <div className="text-lg font-bold">{summary.total_active_orders}</div>
+            <div className="text-xs opacity-90">Active Orders</div>
           </div>
         </div>
       </div>
@@ -516,6 +516,11 @@ export function PositionsPage() {
     const unrealizedPl = position ? parseFloat(position.unrealized_pl) : 0;
     const changeToday = position ? parseFloat(position.change_today) : 0;
     
+    // Get pending buy order details if no position
+    const pendingBuyOrder = trade.orders.find(order => order.order_type === 'buy');
+    const pendingQuantity = pendingBuyOrder ? pendingBuyOrder.order_details.qty : null;
+    const pendingBuyPrice = pendingBuyOrder ? pendingBuyOrder.order_details.limit_price : null;
+    
     return (
       <div className="bg-white border border-gray-200 rounded-lg mb-3 shadow-sm hover:shadow-md transition-all">
         {/* Header */}
@@ -546,7 +551,10 @@ export function PositionsPage() {
             {!position && trade.orders.length > 0 && (
               <div className="text-right">
                 <div className="text-sm font-medium text-gray-500">Pending Entry</div>
-                <div className="text-xs text-gray-400">{trade.order_count} orders</div>
+                <div className="text-xs text-gray-400">
+                  {pendingBuyPrice && <span className="font-medium text-gray-600">@{formatNumber(pendingBuyPrice, 2)} • </span>}
+                  {trade.order_count} orders
+                </div>
               </div>
             )}
           </div>
@@ -575,6 +583,22 @@ export function PositionsPage() {
                     <div className={`text-sm font-medium ${changeToday >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                       {formatPercentage(changeToday)}
                     </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {/* Pending Entry Details */}
+            {!position && pendingBuyOrder && (
+              <div className="mt-3">
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <div className="text-xs text-gray-500">Quantity</div>
+                    <div className="text-sm font-medium">{pendingQuantity}</div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-gray-500">Buy Price</div>
+                    <div className="text-sm font-medium">{formatCurrency(pendingBuyPrice || '0')}</div>
                   </div>
                 </div>
               </div>
@@ -772,7 +796,7 @@ export function PositionsPage() {
         {/* Header */}
         <div className="p-4 md:p-6 border-b border-gray-200">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
+            <div className="ml-12 md:ml-0">
               <h2 className="text-xl md:text-2xl font-bold">Active Trades</h2>
               {lastUpdate && (
                 <p className="text-xs text-gray-500 mt-1">
